@@ -37,10 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
         jTextFieldUserName = new javax.swing.JTextField();
         jPasswordField = new javax.swing.JPasswordField();
         jButtonConect = new javax.swing.JButton();
-        jScrollPaneTables = new javax.swing.JScrollPane();
-        jListTables = new javax.swing.JList<>();
-        jScrollPaneFileds = new javax.swing.JScrollPane();
-        jListFields = new javax.swing.JList<>();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanelLogin.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -70,7 +68,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextFieldUserName)
                         .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
         jPanelLoginLayout.setVerticalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,34 +83,18 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(jButtonConect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jScrollPaneTables.setViewportView(jListTables);
-
-        jScrollPaneFileds.setViewportView(jListFields);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPaneTables, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(140, 140, 140)
-                .addComponent(jScrollPaneFileds, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPaneFileds, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
-                    .addComponent(jScrollPaneTables))
-                .addContainerGap(81, Short.MAX_VALUE))
+            .addComponent(jPanelLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -123,6 +105,7 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Acceso permitido."
                     + "Bienvenido a la base de datos DIU_2018_19", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             jPanelLogin.setVisible(false);
+            d.getInformation();
         }else{
             JOptionPane.showMessageDialog(null, "Acceso denegado."
                     + "El usuario y/o contraseña no son correctos", "ddd", JOptionPane.ERROR_MESSAGE);
@@ -168,12 +151,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JButton jButtonConect;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelUserName;
-    private javax.swing.JList<String> jListFields;
-    private javax.swing.JList<String> jListTables;
     private javax.swing.JPanel jPanelLogin;
     private javax.swing.JPasswordField jPasswordField;
-    private javax.swing.JScrollPane jScrollPaneFileds;
-    private javax.swing.JScrollPane jScrollPaneTables;
     private javax.swing.JTextField jTextFieldUserName;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,7 @@ public class DB {
     String username;
     String password;
     Connection con;
-    public boolean login(String username,   String password){
+    public boolean login(String username, String password) {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             con = DriverManager.getConnection("jdbc:mysql://mozart.dis.ulpgc.es/DIU_2018_19?useSSL=true",
@@ -37,13 +37,9 @@ public class DB {
     
     
     
-    public static void getInformation(){
+    public void getInformation(){
         
         try{
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://SERVIDOR/BASE_DE_DATOS?useSSL=true",
-                "USUARIO",
-                "CLAVE");
             DatabaseMetaData md = con.getMetaData();
             String[] types = {"TABLE"};
             ResultSet rs = md.getTables(null, null, "%", types);
