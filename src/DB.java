@@ -1,13 +1,12 @@
 import java.sql.*;
 import java.util.List;
-import java.util.logging.*;
 import java.util.ArrayList;
 
 public class DB {
     
-    String username;
-    String password;
-    Connection con;
+    private String username;
+    private String password;
+    private Connection con;
     public boolean login(String username, String password) {
         try{
             Class.forName("com.mysql.jdbc.Driver");

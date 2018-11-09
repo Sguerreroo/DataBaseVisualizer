@@ -1,11 +1,11 @@
-
 import java.util.List;
 import java.util.ArrayList;
 
 public class Table {
 
-    private String name;
-    List<Field> fields =  new ArrayList<>();
+    private final String name;
+    private final List<Field> fields =  new ArrayList<>();
+    
     public Table(String name) {
         this.name = name;
     }
@@ -22,10 +22,5 @@ public class Table {
     public void addField(String tableName, String fieldName){
         fields.add(new Field(tableName, fieldName));
     }
-    
-  
-    
-    
-    
     
 }

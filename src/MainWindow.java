@@ -1,9 +1,6 @@
-
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import javax.swing.ListModel;
 import java.util.List;
-import java.util.ArrayList;
 import javax.swing.ListSelectionModel;
 
 /*
@@ -24,7 +21,6 @@ public class MainWindow extends javax.swing.JFrame {
     private List<Table> tables;
     public MainWindow() {
         initComponents();
-        
         setVisibleElementsDB(false);
     }
     
@@ -41,27 +37,23 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel1.setVisible(state);
         jLabel2.setVisible(state);
         jLabel3.setVisible(state);
+        deselect.setVisible(state);
     }
     private DefaultListModel modelListTable(){
         DefaultListModel<Table> model = new DefaultListModel<>();
-        this.tables = d.getInformation();
-        for (Table table : this.tables) {
+        this.tables = db.getInformation();
+        for (Table table : this.tables)
             model.addElement(table);
-        }
         return model;
-        
     }
     private DefaultListModel modelListField(int... index){
         DefaultListModel<Field> model = new DefaultListModel<>();
         for (int i = 0; i < index.length; i++) {
             List<Field> fields =  tables.get(index[i]).getFields();
-            for (Field field : fields) {
-                
+            for (Field field : fields)
                 model.addElement(field);
-            }
         }
         return model;
-        
     }
 
     /**
@@ -86,6 +78,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        deselect = new javax.swing.JButton();
         jPanelLogin = new javax.swing.JPanel();
         jLabelUserName = new javax.swing.JLabel();
         jLabelPassword = new javax.swing.JLabel();
@@ -94,6 +87,7 @@ public class MainWindow extends javax.swing.JFrame {
         jButtonConect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jScrollPane1.setViewportView(jListTables);
 
@@ -143,6 +137,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel3.setText("Campos");
 
+        deselect.setText("Deseleccionar");
+        deselect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deselectActionPerformed(evt);
+            }
+        });
+
         jPanelLogin.setBackground(new java.awt.Color(204, 255, 255));
 
         jLabelUserName.setText("Nombre de usuario:");
@@ -161,7 +162,7 @@ public class MainWindow extends javax.swing.JFrame {
         jPanelLoginLayout.setHorizontalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLoginLayout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(99, 99, 99)
                 .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabelPassword)
                     .addComponent(jLabelUserName))
@@ -170,13 +171,13 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jButtonConect)
                     .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jTextFieldUserName)
-                        .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)))
-                .addContainerGap(171, Short.MAX_VALUE))
+                        .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         jPanelLoginLayout.setVerticalGroup(
             jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelLoginLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
+                .addGap(126, 126, 126)
                 .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelUserName)
                     .addComponent(jTextFieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,9 +185,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGroup(jPanelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPassword)
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addGap(72, 72, 72)
                 .addComponent(jButtonConect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -195,12 +196,14 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonChange)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(32, 32, 32))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonChange, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deselect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -221,18 +224,25 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(jButtonCerrar)
                         .addGap(23, 23, 23))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(100, 100, 100)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(260, 260, 260)
+                .addGap(278, 278, 278)
                 .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(91, 91, 91))
+                .addGap(78, 78, 78))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 376, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jLabel1)
@@ -241,54 +251,57 @@ public class MainWindow extends javax.swing.JFrame {
                             .addComponent(jToggleButtonInterval, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jToggleButtonSimple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jToggleButtonMulti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2)
-                                .addGap(11, 11, 11))
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(148, 148, 148)
-                        .addComponent(jButtonChange, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-                        .addGap(169, 169, 169)))
-                .addGap(18, 18, 18)
+                                .addGap(132, 132, 132)
+                                .addComponent(jButtonChange)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(deselect)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(jScrollPane2))
+                                .addGap(11, 11, 11)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(36, 36, 36))
+                .addGap(34, 34, 34))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonConectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConectActionPerformed
-        if(d.login(jTextFieldUserName.getText(),String.valueOf(jPasswordField.getPassword()))){
-            JOptionPane.showMessageDialog(null, "Acceso permitido."
+        if(db.login(jTextFieldUserName.getText(),String.valueOf(jPasswordField.getPassword()))){
+            JOptionPane.showMessageDialog(null, "Acceso permitido. "
                     + "Bienvenido a la base de datos DIU_2018_19", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             jPanelLogin.setVisible(false);
             jListTables.setModel(modelListTable());
             jToggleButtonMulti.setSelected(true);
             setVisibleElementsDB(true);
         }else{
-            JOptionPane.showMessageDialog(null, "Acceso denegado."
-                    + "El usuario y/o contraseña no son correctos", "ddd", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Acceso denegado. "
+                    + "El usuario y/o contraseña no son correctos", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConectActionPerformed
 
     private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
         int[] index = jListTables.getSelectedIndices();
-        if (index.length!=0) {
-            
+        if (index.length != 0)
             jListFields.setModel(modelListField(index));
-        }else{
-            JOptionPane.showMessageDialog(null, "Debes seleccionar ua tabla", "Información", JOptionPane.INFORMATION_MESSAGE);
-        }
-        
-        
+        else
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Debes seleccionar una tabla",
+                    "Información",
+                    JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButtonChangeActionPerformed
 
     private void jToggleButtonIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonIntervalActionPerformed
@@ -304,7 +317,7 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jToggleButtonMultiActionPerformed
 
     private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
-        if(d.logout()){
+        if(db.logout()){
             setVisibleElementsDB(false);
             jButtonConect.setVisible(true);
             jPanelLogin.setVisible(true);
@@ -312,6 +325,10 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se puedo cerrar la sesion", "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonCerrarActionPerformed
+
+    private void deselectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deselectActionPerformed
+        jListTables.clearSelection();
+    }//GEN-LAST:event_deselectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,9 +364,10 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
     }
-    DB d =  new DB();
+    DB db =  new DB();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton deselect;
     private javax.swing.JButton jButtonCerrar;
     private javax.swing.JButton jButtonChange;
     private javax.swing.JButton jButtonConect;
