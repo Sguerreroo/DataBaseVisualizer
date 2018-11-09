@@ -1,5 +1,7 @@
 import java.sql.*;
+import java.util.List;
 import java.util.logging.*;
+import java.util.ArrayList;
 
 public class DB {
     
@@ -37,24 +39,26 @@ public class DB {
     
     
     
-    public void getInformation(){
-        
+    public List getInformation(){
+        List<Table> tables = new ArrayList<>();
         try{
             DatabaseMetaData md = con.getMetaData();
             String[] types = {"TABLE"};
             ResultSet rs = md.getTables(null, null, "%", types);
             while (rs.next()) {
                 String nombreTabla = rs.getString("TABLE_NAME");
-                System.out.println("Tabla: " + nombreTabla);
+                Table tabla =  new Table(nombreTabla);
                 ResultSet rs2 = md.getColumns(null, null, nombreTabla, null);
                 while (rs2.next()) {
                     String nombreCampo = rs2.getString("COLUMN_NAME");
-                    System.out.println("   Campo: " + nombreCampo);
+                    tabla.addField(nombreTabla, nombreCampo);
                 }
+                tables.add(tabla);
             }           
             con.close();        
         }catch(Exception e){
             
         }
+        return tables;
     }
 }

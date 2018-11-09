@@ -1,5 +1,10 @@
 
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
+import java.util.List;
+import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -9,16 +14,53 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Entrar
+ * @author caca
  */
 public class MainWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form MainWindow
      */
+    private List<Table> tables;
     public MainWindow() {
         initComponents();
         
+        setVisibleElementsDB(false);
+    }
+    
+    private void setVisibleElementsDB(boolean state){
+        jToggleButtonInterval.setVisible(state);
+        jToggleButtonSimple.setVisible(state);
+        jToggleButtonMulti.setVisible(state);
+        jListFields.setVisible(state);
+        jListTables.setVisible(state);
+        jScrollPane1.setVisible(state);
+        jScrollPane2.setVisible(state);
+        jButtonChange.setVisible(state);
+        jButtonCerrar.setVisible(state);
+        jLabel1.setVisible(state);
+        jLabel2.setVisible(state);
+        jLabel3.setVisible(state);
+    }
+    private DefaultListModel modelListTable(){
+        DefaultListModel<Table> model = new DefaultListModel<>();
+        this.tables = d.getInformation();
+        for (Table table : this.tables) {
+            model.addElement(table);
+        }
+        return model;
+        
+    }
+    private DefaultListModel modelListField(int... index){
+        DefaultListModel<Field> model = new DefaultListModel<>();
+        for (int i = 0; i < index.length; i++) {
+            List<Field> fields =  tables.get(index[i]).getFields();
+            for (Field field : fields) {
+                
+                model.addElement(field);
+            }
+        }
+        return model;
         
     }
 
@@ -31,6 +73,19 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListTables = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jListFields = new javax.swing.JList<>();
+        jButtonChange = new javax.swing.JButton();
+        jToggleButtonSimple = new javax.swing.JToggleButton();
+        jToggleButtonInterval = new javax.swing.JToggleButton();
+        jToggleButtonMulti = new javax.swing.JToggleButton();
+        jButtonCerrar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanelLogin = new javax.swing.JPanel();
         jLabelUserName = new javax.swing.JLabel();
         jLabelPassword = new javax.swing.JLabel();
@@ -39,6 +94,54 @@ public class MainWindow extends javax.swing.JFrame {
         jButtonConect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jScrollPane1.setViewportView(jListTables);
+
+        jScrollPane2.setViewportView(jListFields);
+
+        jButtonChange.setText("Mostrar campos");
+        jButtonChange.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonChangeActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jToggleButtonSimple);
+        jToggleButtonSimple.setText("Simple");
+        jToggleButtonSimple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonSimpleActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jToggleButtonInterval);
+        jToggleButtonInterval.setText("Intervalo");
+        jToggleButtonInterval.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonIntervalActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jToggleButtonMulti);
+        jToggleButtonMulti.setText("Múltiples");
+        jToggleButtonMulti.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButtonMultiActionPerformed(evt);
+            }
+        });
+
+        jButtonCerrar.setText("Cerrar sesión");
+        jButtonCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCerrarActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Tipo de selección");
+
+        jLabel2.setText("Tablas");
+
+        jLabel3.setText("Campos");
 
         jPanelLogin.setBackground(new java.awt.Color(204, 255, 255));
 
@@ -83,18 +186,80 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49)
                 .addComponent(jButtonConect, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonChange)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGap(32, 32, 32))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jToggleButtonSimple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButtonInterval, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButtonMulti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(272, 272, 272))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(235, 235, 235)
+                        .addComponent(jButtonCerrar)
+                        .addGap(23, 23, 23))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(260, 260, 260)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(91, 91, 91))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jToggleButtonInterval, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jToggleButtonSimple, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jToggleButtonMulti, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2)
+                                .addGap(11, 11, 11))
+                            .addComponent(jScrollPane1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButtonCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148)
+                        .addComponent(jButtonChange, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                        .addGap(169, 169, 169)))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(36, 36, 36))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanelLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -105,12 +270,48 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Acceso permitido."
                     + "Bienvenido a la base de datos DIU_2018_19", "Informacion", JOptionPane.INFORMATION_MESSAGE);
             jPanelLogin.setVisible(false);
-            d.getInformation();
+            jListTables.setModel(modelListTable());
+            jToggleButtonMulti.setSelected(true);
+            setVisibleElementsDB(true);
         }else{
             JOptionPane.showMessageDialog(null, "Acceso denegado."
                     + "El usuario y/o contraseña no son correctos", "ddd", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jButtonConectActionPerformed
+
+    private void jButtonChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonChangeActionPerformed
+        int[] index = jListTables.getSelectedIndices();
+        if (index.length!=0) {
+            
+            jListFields.setModel(modelListField(index));
+        }else{
+            JOptionPane.showMessageDialog(null, "Debes seleccionar ua tabla", "Información", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_jButtonChangeActionPerformed
+
+    private void jToggleButtonIntervalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonIntervalActionPerformed
+        jListTables.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+    }//GEN-LAST:event_jToggleButtonIntervalActionPerformed
+
+    private void jToggleButtonSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonSimpleActionPerformed
+        jListTables.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }//GEN-LAST:event_jToggleButtonSimpleActionPerformed
+
+    private void jToggleButtonMultiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButtonMultiActionPerformed
+        jListTables.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+    }//GEN-LAST:event_jToggleButtonMultiActionPerformed
+
+    private void jButtonCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCerrarActionPerformed
+        if(d.logout()){
+            setVisibleElementsDB(false);
+            jButtonConect.setVisible(true);
+            jPanelLogin.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "No se puedo cerrar la sesion", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonCerrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,11 +349,24 @@ public class MainWindow extends javax.swing.JFrame {
     }
     DB d =  new DB();
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButtonCerrar;
+    private javax.swing.JButton jButtonChange;
     private javax.swing.JButton jButtonConect;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelUserName;
+    private javax.swing.JList<String> jListFields;
+    private javax.swing.JList<String> jListTables;
     private javax.swing.JPanel jPanelLogin;
     private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextFieldUserName;
+    private javax.swing.JToggleButton jToggleButtonInterval;
+    private javax.swing.JToggleButton jToggleButtonMulti;
+    private javax.swing.JToggleButton jToggleButtonSimple;
     // End of variables declaration//GEN-END:variables
 }
